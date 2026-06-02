@@ -1,206 +1,101 @@
-package com.template;
+<?xml version="1.0" encoding="UTF-8"?>
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-public class MainController {
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF4F2;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
 
-@FXML private Button btnCadastrar;
-@FXML private Button btnEditar;
-@FXML private Button btnDeletar;
-@FXML private Button btnAtualizar;
+    <children>
 
-@FXML private TableView<LivrosDTO> tblLivros;
+        <Label layoutX="14.0" layoutY="29.0" text="Título" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-@FXML private TableColumn<LivrosDTO, Integer> colID;
-@FXML private TableColumn<LivrosDTO, String> colTitulo;
-@FXML private TableColumn<LivrosDTO, String> colAutor;
-@FXML private TableColumn<LivrosDTO, Integer> colAno_publicacao;
-@FXML private TableColumn<LivrosDTO, String> colGenero;
-@FXML private TableColumn<LivrosDTO, Double> colPreco;
+        <TextField fx:id="txtTitulo" layoutX="92.0" layoutY="27.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="joao" />
 
-@FXML private TextField txtID;
-@FXML private TextField txtTitulo;
-@FXML private TextField txtAutor;
-@FXML private TextField txtAno_publicacao;
-@FXML private TextField txtGenero;
-@FXML private TextField txtPreco;
+        <Label layoutX="14.0" layoutY="72.0" text="Autor" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-private final LivrosDAO livrosDAO = new LivrosDAO();
+        <TextField fx:id="txtAutor" layoutX="92.0" layoutY="70.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="joao" />
 
-@FXML
-private void initialize() {
-configurarTabela();
-carregarLivros();
+        <Label layoutX="14.0" layoutY="112.0" text="Gênero" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-    tblLivros.getSelectionModel().selectedItemProperty().addListener(
-    (observable, livroAntigo, livroSelecionado) -> {
-    if (livroSelecionado != null) {
-    preencherCampos(livroSelecionado);
-    }
-    }
-    );
-    }
+        <TextField fx:id="txtGenero" layoutX="92.0" layoutY="110.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="masculino" />
 
-    @FXML
-    private void btnCadastrarAction() {
-    cadastrarLivro();
-    }
+        <Label layoutX="312.0" layoutY="29.0" text="Ano" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-    @FXML
-    private void btnEditarAction() {
-    editarLivro();
-    }
+        <TextField fx:id="txtAno_publicacao" layoutX="369.0" layoutY="27.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="2026" />
 
-    @FXML
-    private void btnDeletarAction() {
-    deletarLivro();
-    }
+        <Label layoutX="312.0" layoutY="72.0" text="Preço" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-    @FXML
-    private void btnAtualizarAction() {
-    carregarLivros();
-    limparCampos();
-    mostrarAlerta("Tabela atualizada com sucesso!");
-    }
+        <TextField fx:id="txtPreco" layoutX="369.0" layoutY="70.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="50" />
 
-    private void configurarTabela() {
-    colID.setCellValueFactory(new PropertyValueFactory<>("id"));
-    colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-    colAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
-    colAno_publicacao.setCellValueFactory(new PropertyValueFactory<>("anoPublicacao"));
-    colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
-    colPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
-    }
+        <Label layoutX="312.0" layoutY="114.0" text="ID" textFill="#42227a">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
 
-    private void carregarLivros() {
-    ObservableList<LivrosDTO> lista = FXCollections.observableArrayList(livrosDAO.listarLivros());
-    tblLivros.setItems(lista);
-    }
+        <TextField fx:id="txtID" editable="false" layoutX="369.0" layoutY="110.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="1" />
 
-    private void cadastrarLivro() {
-    try {
-    if (txtTitulo.getText().isEmpty() ||
-    txtAutor.getText().isEmpty() ||
-    txtAno_publicacao.getText().isEmpty() ||
-    txtGenero.getText().isEmpty() ||
-    txtPreco.getText().isEmpty()) {
+        <TableView fx:id="tblLivros" layoutX="111.0" layoutY="175.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="476.0" style="-fx-background-color: #FFE2DB;">
 
-    mostrarAlerta("Preencha todos os campos antes de cadastrar.");
-    return;
-    }
+            <columns>
+                <TableColumn fx:id="colID" prefWidth="35.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="ID" />
 
-    LivrosDTO livro = new LivrosDTO();
+                <TableColumn fx:id="colTitulo" prefWidth="95.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Título" />
 
-    livro.setTitulo(txtTitulo.getText());
-    livro.setAutor(txtAutor.getText());
-    livro.setAnoPublicacao(Integer.parseInt(txtAno_publicacao.getText()));
-    livro.setGenero(txtGenero.getText());
-    livro.setPreco(Double.parseDouble(txtPreco.getText()));
+                <TableColumn fx:id="colAutor" prefWidth="90.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Autor" />
 
-    livrosDAO.cadastrarLivro(livro);
+                <TableColumn fx:id="colAno_publicacao" prefWidth="95.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Ano" />
 
-    carregarLivros();
-    limparCampos();
+                <TableColumn fx:id="colGenero" prefWidth="80.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Gênero" />
 
-    mostrarAlerta("Livro cadastrado com sucesso!");
+                <TableColumn fx:id="colPreco" prefWidth="80.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Preço" />
+            </columns>
+        </TableView>
 
-    } catch (NumberFormatException e) {
-    mostrarAlerta("Ano de publicação e preço devem ser números válidos.");
-    }
-    }
+        <Button fx:id="btnCadastrar" layoutX="28.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnCadastrarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Salvar" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
 
-    private void editarLivro() {
-    try {
-    if (txtID.getText().isEmpty()) {
-    mostrarAlerta("Selecione um livro na tabela para editar.");
-    return;
-    }
+        <Button fx:id="btnEditar" layoutX="28.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Editar" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
 
-    if (txtTitulo.getText().isEmpty() ||
-    txtAutor.getText().isEmpty() ||
-    txtAno_publicacao.getText().isEmpty() ||
-    txtGenero.getText().isEmpty() ||
-    txtPreco.getText().isEmpty()) {
+        <Button fx:id="btnDeletar" layoutX="28.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Deletar" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
 
-    mostrarAlerta("Preencha todos os campos antes de editar.");
-    return;
-    }
+        <Button fx:id="btnLimpar" layoutX="28.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Limpar" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
 
-    LivrosDTO livro = new LivrosDTO();
-
-    livro.setId(Integer.parseInt(txtID.getText()));
-    livro.setTitulo(txtTitulo.getText());
-    livro.setAutor(txtAutor.getText());
-    livro.setAnoPublicacao(Integer.parseInt(txtAno_publicacao.getText()));
-    livro.setGenero(txtGenero.getText());
-    livro.setPreco(Double.parseDouble(txtPreco.getText()));
-
-    livrosDAO.atualizarLivro(livro);
-
-    carregarLivros();
-    limparCampos();
-
-    mostrarAlerta("Livro editado com sucesso!");
-
-    } catch (NumberFormatException e) {
-    mostrarAlerta("Ano de publicação e preço devem ser números válidos.");
-    }
-    }
-
-    private void deletarLivro() {
-    try {
-    if (txtID.getText().isEmpty()) {
-    mostrarAlerta("Selecione um livro na tabela para deletar.");
-    return;
-    }
-
-    int id = Integer.parseInt(txtID.getText());
-
-    livrosDAO.deletarLivro(id);
-
-    carregarLivros();
-    limparCampos();
-
-    mostrarAlerta("Livro deletado com sucesso!");
-
-    } catch (NumberFormatException e) {
-    mostrarAlerta("ID inválido.");
-    }
-    }
-
-    private void preencherCampos(LivrosDTO livro) {
-    txtID.setText(String.valueOf(livro.getId()));
-    txtTitulo.setText(livro.getTitulo());
-    txtAutor.setText(livro.getAutor());
-    txtAno_publicacao.setText(String.valueOf(livro.getAnoPublicacao()));
-    txtGenero.setText(livro.getGenero());
-    txtPreco.setText(String.valueOf(livro.getPreco()));
-    }
-
-    private void limparCampos() {
-    txtID.clear();
-    txtTitulo.clear();
-    txtAutor.clear();
-    txtAno_publicacao.clear();
-    txtGenero.clear();
-    txtPreco.clear();
-
-    tblLivros.getSelectionModel().clearSelection();
-    }
-
-    private void mostrarAlerta(String mensagem) {
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Aviso");
-    alerta.setHeaderText(null);
-    alerta.setContentText(mensagem);
-    alerta.showAndWait();
-    }
-    }
+    </children>
+</AnchorPane>
