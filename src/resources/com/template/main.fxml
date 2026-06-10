@@ -1,101 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF4F2;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
-
+<AnchorPane prefHeight="620.0" prefWidth="920.0" style="-fx-background-color: #42227a;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
     <children>
+        <VBox spacing="16.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="12.0" style="-fx-background-color: #c9b2fa; -fx-background-radius: 14; -fx-padding: 18;">
+                <children>
+                    <Label text="📚 Biblioteca" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="28.0" />
+                        </font>
+                    </Label>
+                    <Label text="Cadastro simples de livros" textFill="#f4dfc8">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </HBox>
+            <HBox spacing="16.0">
+                <children>
+                    <VBox prefWidth="310.0" spacing="10.0" style="-fx-background-color: #ff914d; -fx-background-radius: 14; -fx-padding: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 2);">
+                        <children>
+                            <Label text="Dados do livro" textFill="#4a3328">
+                                <font>
+                                    <Font name="System Bold" size="19.0" />
+                                </font>
+                            </Label>
+                            <Label text="Título *" />
+                            <TextField fx:id="txtTitulo" prefHeight="34.0" />
+                            <Label text="Autor *" />
+                            <TextField fx:id="txtAutor" prefHeight="34.0" />
+                            <Label text="Ano de publicação *" />
+                            <Spinner fx:id="spnAno_publicacao" prefHeight="34.0" prefWidth="280.0" />
+                            <Label text="Gênero *" />
+                            <ComboBox fx:id="cbGenero" prefHeight="34.0" prefWidth="280.0" promptText="Selecione o gênero" />
+                            <Label text="Preço *" />
+                            <TextField fx:id="txtPreco" prefHeight="34.0" />
+                            <HBox spacing="8.0">
+                                <children>
+                                    <Button fx:id="btnCadastrar" mnemonicParsing="false" onAction="#btnCadastrarAction" prefHeight="34.0" prefWidth="92.0" styleClass="botao-principal" text="Cadastrar" />
+                                    <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="34.0" prefWidth="80.0" styleClass="botao-editar" text="Editar" />
+                                    <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="34.0" prefWidth="80.0" styleClass="botao-excluir" text="Excluir" />
+                                </children>
+                            </HBox>
+                            <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="34.0" prefWidth="262.0" styleClass="botao-limpar" text="Limpar campos" />
+                            <Label fx:id="lblMensagem" maxWidth="280.0" prefHeight="38.0" text="Preencha os dados para cadastrar um livro." wrapText="true" />
+                        </children>
+                    </VBox>
+                    <VBox spacing="10.0" style="-fx-background-color: #ff914d; -fx-background-radius: 14; -fx-padding: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #ff914d;">
+                                <children>
+                                    <Label text="Livros cadastrados" textFill="#4a3328">
+                                        <font>
+                                            <Font name="System Bold" size="19.0" />
+                                        </font>
+                                    </Label>
+                                    <Label fx:id="lblContador" text="Livros cadastrados: 0" textFill="#6f4e37" />
+                                </children>
+                            </HBox>
+                            <TextField fx:id="txtPesquisa" prefHeight="35.0" />
+                            <TableView fx:id="tblLivros" prefHeight="415.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
+                                    <TableColumn fx:id="colTitulo" prefWidth="170.0" text="Título" />
+                                    <TableColumn fx:id="colAutor" prefWidth="140.0" text="Autor" />
+                                    <TableColumn fx:id="colAno_publicacao" prefWidth="80.0" text="Ano" />
+                                    <TableColumn fx:id="colGenero" prefWidth="100.0" text="Gênero" />
+                                    <TableColumn fx:id="colPreco" prefWidth="80.0" text="Preço" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </VBox>
 
-        <Label layoutX="14.0" layoutY="29.0" text="Título" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtTitulo" layoutX="92.0" layoutY="27.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="joao" />
-
-        <Label layoutX="14.0" layoutY="72.0" text="Autor" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtAutor" layoutX="92.0" layoutY="70.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="joao" />
-
-        <Label layoutX="14.0" layoutY="112.0" text="Gênero" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtGenero" layoutX="92.0" layoutY="110.0" prefHeight="25.0" prefWidth="180.0" style="-fx-background-radius: 30;" text="masculino" />
-
-        <Label layoutX="312.0" layoutY="29.0" text="Ano" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtAno_publicacao" layoutX="369.0" layoutY="27.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="2026" />
-
-        <Label layoutX="312.0" layoutY="72.0" text="Preço" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtPreco" layoutX="369.0" layoutY="70.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="50" />
-
-        <Label layoutX="312.0" layoutY="114.0" text="ID" textFill="#42227a">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="txtID" editable="false" layoutX="369.0" layoutY="110.0" prefHeight="25.0" prefWidth="192.0" style="-fx-background-radius: 30;" text="1" />
-
-        <TableView fx:id="tblLivros" layoutX="111.0" layoutY="175.0" onMouseClicked="#carregarCampos" prefHeight="200.0" prefWidth="476.0" style="-fx-background-color: #FFE2DB;">
-
-            <columns>
-                <TableColumn fx:id="colID" prefWidth="35.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="ID" />
-
-                <TableColumn fx:id="colTitulo" prefWidth="95.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Título" />
-
-                <TableColumn fx:id="colAutor" prefWidth="90.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Autor" />
-
-                <TableColumn fx:id="colAno_publicacao" prefWidth="95.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Ano" />
-
-                <TableColumn fx:id="colGenero" prefWidth="80.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Gênero" />
-
-                <TableColumn fx:id="colPreco" prefWidth="80.0" style="-fx-background-color: #42227A; -fx-text-background-color: #FFFFFF;" text="Preço" />
-            </columns>
-        </TableView>
-
-        <Button fx:id="btnCadastrar" layoutX="28.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnCadastrarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Salvar" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Button>
-
-        <Button fx:id="btnEditar" layoutX="28.0" layoutY="226.0" mnemonicParsing="false" onAction="#btnEditarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Editar" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Button>
-
-        <Button fx:id="btnDeletar" layoutX="28.0" layoutY="263.0" mnemonicParsing="false" onAction="#btnDeletarAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Deletar" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Button>
-
-        <Button fx:id="btnLimpar" layoutX="28.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #ff914d;" text="Limpar" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </Button>
-
+                </children>
+            </HBox>
+        </VBox>
     </children>
 </AnchorPane>
