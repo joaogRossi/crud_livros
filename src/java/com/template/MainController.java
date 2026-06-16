@@ -192,7 +192,6 @@ public class MainController {
         mostrarMensagem("Campos limpos.", "aviso");
     }
     private boolean validarCampos() {
-        limparEstilosErro();
         if (txtTitulo.getText().trim().isEmpty()) {
             txtTitulo.getStyleClass().add("campo-erro");
             mostrarMensagem("Informe o título do livro.", "erro");
@@ -240,14 +239,7 @@ public class MainController {
         btnCadastrar.setDisable(true);
         btnEditar.setDisable(true);
         btnDeletar.setDisable(true);
-        limparEstilosErro();
         txtTitulo.requestFocus();
-    }
-    private void limparEstilosErro() {
-        txtTitulo.getStyleClass().remove("campo-erro");
-        txtAutor.getStyleClass().remove("campo-erro");
-        cbGenero.getStyleClass().remove("campo-erro");
-        txtPreco.getStyleClass().remove("campo-erro");
     }
     private void mostrarMensagem(String mensagem, String tipo) {
         lblMensagem.setText(mensagem);

@@ -48,18 +48,12 @@ public class LivrosDTO {
 }
 
 /* 3 melhorias de Layout:
-Tela com tema de biblioteca: cores marrons, fundo claro e título “📚 Biblioteca”.
+Emoji de livros
 Formulário separado em um painel/card branco, com espaçamento melhor.
 Tabela mais bonita, com cabeçalho colorido, colunas ajustadas e linha selecionada destacada.
 
 3 melhorias de Usabilidade:
 
-Removi o campo de ID do formulário. O ID fica só na tabela e não é editável.
-Troquei campos por componentes melhores:
 Spinner para ano;
-ComboBox para gênero.
-campo de pesquisa;
-contador de livros cadastrados;
-mensagens em Label;
-validação de campos obrigatórios;
-botões desabilitados quando não podem ser usados.*/
+ComboBox para gênero;
+campo de pesquisa;*/
