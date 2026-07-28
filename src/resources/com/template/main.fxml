@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="620.0" prefWidth="920.0" style="-fx-background-color: #42227a;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+<AnchorPane prefHeight="620.0" prefWidth="920.0" style="-fx-background-color: #42227a;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.controller.MainController">
     <children>
         <VBox spacing="16.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0">
             <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="12.0" style="-fx-background-color: #c9b2fa; -fx-background-radius: 14; -fx-padding: 18;">
@@ -42,7 +42,7 @@
                             <Label text="Autor *" />
                             <TextField fx:id="txtAutor" prefHeight="34.0" />
                             <Label text="Ano de publicação *" />
-                            <Spinner fx:id="spnAno_publicacao" prefHeight="34.0" prefWidth="280.0" />
+                            <Spinner fx:id="spnAnoPublicacao" prefHeight="34.0" prefWidth="280.0" />
                             <Label text="Gênero *" />
                             <ComboBox fx:id="cbGenero" prefHeight="34.0" prefWidth="280.0" promptText="Selecione o gênero" />
                             <Label text="Preço *" />
@@ -55,6 +55,7 @@
                                 </children>
                             </HBox>
                             <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#btnLimparAction" prefHeight="34.0" prefWidth="262.0" styleClass="botao-limpar" text="Limpar campos" />
+                            <Label fx:id="lblMensagem" text="" />
                         </children>
                     </VBox>
                     <VBox spacing="10.0" style="-fx-background-color: #ff914d; -fx-background-radius: 14; -fx-padding: 16; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.12), 8, 0, 0, 2);" HBox.hgrow="ALWAYS">
@@ -75,7 +76,7 @@
                                     <TableColumn fx:id="colID" prefWidth="50.0" text="ID" />
                                     <TableColumn fx:id="colTitulo" prefWidth="170.0" text="Título" />
                                     <TableColumn fx:id="colAutor" prefWidth="140.0" text="Autor" />
-                                    <TableColumn fx:id="colAno_publicacao" prefWidth="80.0" text="Ano" />
+                                    <TableColumn fx:id="colAnoPublicacao" prefWidth="80.0" text="Ano" />
                                     <TableColumn fx:id="colGenero" prefWidth="100.0" text="Gênero" />
                                     <TableColumn fx:id="colPreco" prefWidth="80.0" text="Preço" />
                                 </columns>
