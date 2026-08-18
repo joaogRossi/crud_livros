@@ -2,21 +2,10 @@ package com.template.validator;
 
 public class LivrosValidator {
 
-    public static boolean camposPreenchidos(
-            String titulo,
-            String autor,
-            String genero,
-            String preco) {
-        return textoPreenchido(titulo)
-                && textoPreenchido(autor)
-                && textoPreenchido(genero)
-                && textoPreenchido(preco);
+    public static boolean camposPreenchidos(String titulo, String autor, String genero, String preco) {
+        return textoPreenchido(titulo) && textoPreenchido(autor) && textoPreenchido(genero) && textoPreenchido(preco);
     }
-    public static String validar(
-            String titulo,
-            String autor,
-            String genero,
-            String preco) {
+    public static String validar(String titulo, String autor, String genero, String preco) {
         if (!textoPreenchido(titulo)) {return "Informe o título do livro.";}
         if (!textoPreenchido(autor)) {return "Informe o autor do livro.";}
         if (!textoPreenchido(genero)) {return "Selecione o gênero do livro.";}

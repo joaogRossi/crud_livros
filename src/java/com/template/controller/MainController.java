@@ -102,8 +102,7 @@ public class MainController {
         String pesquisa = txtPesquisa.getText().toLowerCase().trim();
         ObservableList<LivrosDTO> listaFiltrada = FXCollections.observableArrayList(
                         livrosService.filtrarLivros(
-                                listaLivros,
-                                pesquisa
+                                listaLivros, pesquisa
                         )
                 );
         tblLivros.setItems(listaFiltrada);
