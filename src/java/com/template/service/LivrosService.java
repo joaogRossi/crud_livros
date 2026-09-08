@@ -19,21 +19,16 @@ public class LivrosService {
     public void deletarLivro(int id) {
         livrosDAO.deletarLivro(id);
     }
-    public List<LivrosDTO> filtrarLivros(
-            List<LivrosDTO> livros,
-            String pesquisa) {
+    public List<LivrosDTO> filtrarLivros(List<LivrosDTO> livros, String pesquisa) {
         if (pesquisa == null || pesquisa.isBlank()) {
             return livros;
         }
         List<LivrosDTO> listaFiltrada = new ArrayList<>();
         for (LivrosDTO livro : livros) {
             String id = String.valueOf(livro.getId());
-            String titulo = livro.getTitulo()
-                    .toLowerCase();
-            String autor = livro.getAutor()
-                    .toLowerCase();
-            String genero = livro.getGenero()
-                    .toLowerCase();
+            String titulo = livro.getTitulo().toLowerCase();
+            String autor = livro.getAutor().toLowerCase();
+            String genero = livro.getGenero().toLowerCase();
             if (id.contains(pesquisa)
                     || titulo.contains(pesquisa)
                     || autor.contains(pesquisa)

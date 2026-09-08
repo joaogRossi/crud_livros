@@ -3,7 +3,7 @@ package com.template.controller;
 import com.template.model.dto.LivrosDTO;
 import com.template.service.LivrosService;
 import com.template.util.DialogUtil;
-import com.template.validator.LivrosValidator;
+import com.template.validator.ILivrosValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,7 +39,13 @@ public class MainController {
     @FXML private Label lblContador;
 
     private final LivrosService livrosService = new LivrosService();
+    private final ILivrosValidator livrosValidator;
     private ObservableList<LivrosDTO> listaLivros = FXCollections.observableArrayList();
+
+    public MainController(ILivrosValidator livrosValidator) {
+        this.livrosValidator = livrosValidator;
+    }
+
     @FXML
     private void initialize() {
         configurarTabela();
@@ -102,8 +108,7 @@ public class MainController {
         String pesquisa = txtPesquisa.getText().toLowerCase().trim();
         ObservableList<LivrosDTO> listaFiltrada = FXCollections.observableArrayList(
                         livrosService.filtrarLivros(
-                                listaLivros,
-                                pesquisa
+                                listaLivros, pesquisa
                         )
                 );
         tblLivros.setItems(listaFiltrada);
@@ -172,7 +177,7 @@ public class MainController {
         limparCampos();
     }
     private boolean validarCampos() {
-        String erro = LivrosValidator.validar(
+        String erro = livrosValidator.validar(
                 txtTitulo.getText(),
                 txtAutor.getText(),
                 cbGenero.getValue(),
@@ -186,7 +191,7 @@ public class MainController {
     }
     private void verificarCampos() {
         boolean camposPreenchidos =
-                LivrosValidator.camposPreenchidos(
+                livrosValidator.camposPreenchidos(
                         txtTitulo.getText(),
                         txtAutor.getText(),
                         cbGenero.getValue(),
