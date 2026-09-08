@@ -37,6 +37,7 @@ public class MainController {
     @FXML private Button btnDeletar;
     @FXML private Button btnLimpar;
     @FXML private Label lblContador;
+    @FXML private Label lblMensagem;
 
     private final LivrosService livrosService = new LivrosService();
     private final ILivrosValidator livrosValidator;
@@ -84,18 +85,14 @@ public class MainController {
         txtPreco.setTextFormatter(
                 new TextFormatter<>(change -> {
                     String texto = change.getControlNewText();
-                    if (texto.matches("\\d*([.]\\d{0,2})?")) {return change;}
+                    if (texto.matches("\\d*([.]\\d{0,2})?")) { return change; }
                     return null;
                 })
         );
         txtPesquisa.textProperty().addListener((obs, antigo, novo) -> filtrarLivros());
-        txtTitulo.textProperty().addListener((obs, antigo, novo) -> verificarCampos());
-        txtAutor.textProperty().addListener((obs, antigo, novo) -> verificarCampos());
-        txtPreco.textProperty().addListener((obs, antigo, novo) -> verificarCampos());
-        cbGenero.valueProperty().addListener((obs, antigo, novo) -> verificarCampos());
     }
     private void configurarBotoes() {
-        btnCadastrar.setDisable(true);
+        btnCadastrar.setDisable(false);
         btnEditar.setDisable(true);
         btnDeletar.setDisable(true);
     }
@@ -107,10 +104,8 @@ public class MainController {
     private void filtrarLivros() {
         String pesquisa = txtPesquisa.getText().toLowerCase().trim();
         ObservableList<LivrosDTO> listaFiltrada = FXCollections.observableArrayList(
-                        livrosService.filtrarLivros(
-                                listaLivros, pesquisa
-                        )
-                );
+                livrosService.filtrarLivros(listaLivros, pesquisa)
+        );
         tblLivros.setItems(listaFiltrada);
         atualizarContador(listaFiltrada.size());
     }
@@ -149,7 +144,7 @@ public class MainController {
             DialogUtil.showError("Selecione um livro para editar.");
             return;
         }
-        if (!validarCampos()) {return;}
+        if (!validarCampos()) { return; }
         livroSelecionado.setTitulo(txtTitulo.getText().trim());
         livroSelecionado.setAutor(txtAutor.getText().trim());
         livroSelecionado.setAnoPublicacao(spnAnoPublicacao.getValue());
@@ -177,29 +172,13 @@ public class MainController {
         limparCampos();
     }
     private boolean validarCampos() {
-        String erro = livrosValidator.validar(
+        boolean valido = livrosValidator.validar(
                 txtTitulo.getText(),
                 txtAutor.getText(),
                 cbGenero.getValue(),
                 txtPreco.getText()
         );
-        if (erro != null) {
-            DialogUtil.showError(erro);
-            return false;
-        }
-        return true;
-    }
-    private void verificarCampos() {
-        boolean camposPreenchidos =
-                livrosValidator.camposPreenchidos(
-                        txtTitulo.getText(),
-                        txtAutor.getText(),
-                        cbGenero.getValue(),
-                        txtPreco.getText()
-                );
-        boolean temLivroSelecionado = tblLivros.getSelectionModel().getSelectedItem() != null;
-        btnCadastrar.setDisable(!camposPreenchidos || temLivroSelecionado
-        );
+        return valido;
     }
     private LivrosDTO criarLivro() {
         LivrosDTO livro = new LivrosDTO();
@@ -217,7 +196,7 @@ public class MainController {
         cbGenero.setValue(null);
         txtPreco.clear();
         tblLivros.getSelectionModel().clearSelection();
-        btnCadastrar.setDisable(true);
+        btnCadastrar.setDisable(false);
         btnEditar.setDisable(true);
         btnDeletar.setDisable(true);
         txtTitulo.requestFocus();
